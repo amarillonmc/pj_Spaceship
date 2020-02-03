@@ -80,16 +80,16 @@ function LoginForm() {
   LoginForm.prototype.createLoginForm = function() {
     // Generate the form depending on parameters (it is ugly but eh)
     let html =  '<div id="LoginForm" style="background-color: rgba(0,0,0,0.4); border-radius: 8px; margin: 0 auto; width: 400px; padding: 8px;">'+
-    '<div style="color: white;">Login</div>'+
-    '<div>'+
+    '<div style="color: white;text-align: center;">登陆游戏 | Login</div>'+
+    '<div style="text-align: center;">'+
       '<div id="loginErrBox"></div>'+
       '<div>'+
-        '<input type="text" id="inputUsername" placeholder="Username">';
+        '<input type="text" id="inputUsername" placeholder="用户名 | User Name">';
 
-    if(LoginForm.Parameters["allowAccountCreation"]) html = html + '<br><input type="password" id="inputPassword" placeholder="Password">';
+    if(LoginForm.Parameters["allowAccountCreation"]) html = html + '<br><input type="password" id="inputPassword" placeholder="密码 | Password">';
 
     html = html + '</div><br>'+
-        '<button id="btnConnect">Connect</button>'+
+        '<button id="btnConnect">连接 | Connect</button>'+
       '</div>'+
     '</div>';
 
