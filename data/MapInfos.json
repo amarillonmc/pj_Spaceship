@@ -2,7 +2,7 @@
 null,
 {"id":1,"expanded":true,"name":"Global Map","order":1,"parentId":0,"scrollX":939,"scrollY":625.5},
 {"id":2,"expanded":false,"name":"Local Map","order":5,"parentId":0,"scrollX":939,"scrollY":625.5},
-{"id":3,"expanded":true,"name":"空中城市","order":2,"parentId":1,"scrollX":1030,"scrollY":1646.5},
+{"id":3,"expanded":true,"name":"空中城市","order":2,"parentId":1,"scrollX":1022,"scrollY":1638.5},
 {"id":4,"expanded":false,"name":"Null","order":3,"parentId":1,"scrollX":939,"scrollY":625.5},
 {"id":5,"expanded":false,"name":"Downtown","order":4,"parentId":1,"scrollX":932,"scrollY":904.5}
 ]
