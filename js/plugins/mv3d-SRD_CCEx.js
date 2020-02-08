@@ -1,14 +1,14 @@
 if (Imported && Imported["SumRndmDde Character Creator EX"]) {
     var updateCharacter = function(){
         //main edit starts here
-        if (this._character && this._character.hasSetImage() &&
+        if (this._character.hasSetImage() &&
         (!this._character._oldCustomBitmap || this._character._oldCustomBitmap !== this._character._customBitmap)) {
             if (!this._character._customBitmap) this._character.needsCustomUpdate();
             this.setMaterial(this._character._customBitmap);
             this._character._oldCustomBitmap = this._character._customBitmap;
             this._isBigCharacter = true;
             this._character._charNeedsUpdate = false;
-		} else if (this.isBaseImageChanged() || (this._character && !!this._character._customBitmap)) {
+		} else if (SRD.CharacterCreatorEX.Sprite_Character_isImageChanged.call(this) || !!this._character._customBitmap) {
             this._character._oldCustomBitmap = undefined;
             this._character._customBitmap = undefined;
             //main edit ends here
@@ -34,8 +34,6 @@ if (Imported && Imported["SumRndmDde Character Creator EX"]) {
     var mv3d_CCEx_createCharacterFor = mv3d.createCharacterFor;
     mv3d.createCharacterFor = function () {
         var char = mv3d_CCEx_createCharacterFor.apply(this, arguments);
-        char.isBaseImageChanged = char.isImageChanged;
-        char.isImageChanged = function(){return this.isBaseImageChanged() || (this._character && this._character.needsCustomUpdate())};
         char.updateCharacter = updateCharacter;
         char.updateCharacter();
         return char;
@@ -68,17 +66,19 @@ if (Imported && Imported["SumRndmDde Character Creator EX"]) {
     };
     Game_Player.prototype.needsCustomUpdate = function() {
         const actor = $gameParty.leader();
-        if (actor && actor.hasSetImage() && (actor._neededCustomUpdate || this._customBitmap !== this.isDeadCustomCharacter() ? actor._customBitmapDead : actor._customBitmap)) {
+        if (!actor) return false;
+        if (actor.hasSetImage() && (actor._neededCustomUpdate || this._customBitmap !== this.isDeadCustomCharacter() ? actor._customBitmapDead : actor._customBitmap)) {
             this._customBitmap = this.isDeadCustomCharacter() ? actor._customBitmapDead : actor._customBitmap;
         }
-        return actor && !!(actor._neededCustomUpdate || (this._oldCustomBitmap !== this._customBitmap));
+        return !!(actor._neededCustomUpdate || (this._oldCustomBitmap !== this._customBitmap));
     };
     Game_Follower.prototype.needsCustomUpdate = function() {
         const actor = this.actor();
-        if (actor && actor.hasSetImage() && (actor._neededCustomUpdate || this._customBitmap !== this.isDeadCustomCharacter() ? actor._customBitmapDead : actor._customBitmap)) {
+        if (!actor) return false;
+        if (actor.hasSetImage() && (actor._neededCustomUpdate || this._customBitmap !== this.isDeadCustomCharacter() ? actor._customBitmapDead : actor._customBitmap)) {
             this._customBitmap = this.isDeadCustomCharacter() ? actor._customBitmapDead : actor._customBitmap;
         }
-        return actor && !!(actor._neededCustomUpdate || (this._oldCustomBitmap !== this._customBitmap));
+        return !!(actor._neededCustomUpdate || (this._oldCustomBitmap !== this._customBitmap));
     };
     Game_Player.prototype.setAllNeedsCustomUpdate = function() {
         /*this.setNeedsCustomUpdate(true);
