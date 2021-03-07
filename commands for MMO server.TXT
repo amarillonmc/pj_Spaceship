@@ -1,0 +1,8 @@
+Host File Location:
+CD C:\Users\Shermaine\Downloads\pj_Spaceship-master - 1\pj_Spaceship-master\server
+
+2 CMD Prompts:
+rethinkdb
+node mmo.js
+
+Run Bat file
