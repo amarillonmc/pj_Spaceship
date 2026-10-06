@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS players (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  username VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  state JSON NOT NULL,
+  revision BIGINT UNSIGNED NOT NULL DEFAULT 0,
+  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  updated_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  UNIQUE KEY players_username (username)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS player_requests (
+  player_id BIGINT UNSIGNED NOT NULL,
+  request_id VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  operation VARCHAR(32) NOT NULL,
+  response JSON NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (player_id, request_id),
+  CONSTRAINT requests_player FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS world_drops (
+  id CHAR(36) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  map_id INT UNSIGNED NOT NULL,
+  x INT NOT NULL,
+  y INT NOT NULL,
+  kind ENUM('item', 'weapon', 'armor') NOT NULL DEFAULT 'item',
+  item_id INT UNSIGNED NOT NULL,
+  quantity INT UNSIGNED NOT NULL,
+  metadata JSON NOT NULL,
+  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  KEY drops_map (map_id),
+  CONSTRAINT drops_quantity_positive CHECK (quantity > 0)
+) ENGINE=InnoDB;

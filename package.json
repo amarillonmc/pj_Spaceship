@@ -9,6 +9,11 @@
         "height": 624,
         "icon": "icon/icon.png"
     },
+    "scripts": {
+        "engine:dev": "npm --prefix engine run dev",
+        "engine:test": "npm --prefix engine test",
+        "engine:content": "npm --prefix engine run content:check"
+    },
     "devDependencies": {
         "browser-sync": "^2.26.14"
     }

@@ -3,3 +3,8 @@ node_modules/
 save/
 
 *.log
+
+# Independent engine: local database, credentials and generated test artifacts.
+engine/.env
+engine/.local/
+engine/.artifacts/

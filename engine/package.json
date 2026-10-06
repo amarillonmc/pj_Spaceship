@@ -1,0 +1,20 @@
+{
+  "name": "spaceship-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env server/index.mjs",
+    "start": "node --env-file-if-exists=.env server/index.mjs",
+    "test": "node --test test/*.test.mjs client/*.test.mjs",
+    "test:integration": "node tools/test-mysql.mjs",
+    "content:check": "node tools/check-content.mjs",
+    "mysql:start": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/mysql-local.ps1",
+    "mysql:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/mysql-stop.ps1"
+  },
+  "dependencies": {
+    "mysql2": "^3.15.3",
+    "ws": "^8.18.3"
+  }
+}
